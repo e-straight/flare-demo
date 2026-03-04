@@ -3,133 +3,535 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flare Demo</title>
+  <title>Flare Capital — Anyone Can Be a Developer</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
   <style>
-    /* GitHub Primer color palette */
+    /* ── GitHub Primer Dark palette ────────────────────── */
     :root {
-      --gh-bg:        #0d1117;
-      --gh-bg-light:  #161b22;
-      --gh-border:    #30363d;
-      --gh-text:      #e6edf3;
-      --gh-muted:     #8b949e;
-      --gh-blue:      #58a6ff;
-      --gh-green:     #3fb950;
-      --gh-purple:    #bc8cff;
-      --gh-orange:    #d29922;
-      --gh-red:       #f85149;
+      --gh-canvas:       #0d1117;
+      --gh-canvas-subtle:#161b22;
+      --gh-canvas-inset: #010409;
+      --gh-border:       #30363d;
+      --gh-border-subtle:#21262d;
+      --gh-fg:           #e6edf3;
+      --gh-fg-muted:     #8b949e;
+      --gh-fg-subtle:    #6e7681;
+      --gh-accent-blue:  #58a6ff;
+      --gh-accent-green: #3fb950;
+      --gh-accent-purple:#bc8cff;
+      --gh-accent-coral: #f78166;
+      --gh-accent-pink:  #f778ba;
+      --gh-accent-yellow:#d29922;
     }
 
-    /* Override Reveal theme */
+    /* ── Base overrides ─────────────────────────────────── */
     .reveal-viewport {
-      background: var(--gh-bg);
+      background: var(--gh-canvas);
+    }
+    .reveal-viewport::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(88,166,255,0.06), transparent),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(188,140,255,0.05), transparent);
+      pointer-events: none;
+      z-index: 0;
     }
     .reveal {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
-      color: var(--gh-text);
+      color: var(--gh-fg);
     }
     .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-      color: var(--gh-text);
+      color: var(--gh-fg);
       font-weight: 600;
       text-transform: none;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
-    .reveal h1 {
-      font-size: 2.4em;
-      background: linear-gradient(135deg, var(--gh-blue), var(--gh-purple));
+    .reveal p, .reveal li {
+      color: var(--gh-fg-muted);
+      font-size: 0.85em;
+      line-height: 1.7;
+    }
+    .reveal a { color: var(--gh-accent-blue); text-decoration: none; }
+    .reveal a:hover { text-decoration: underline; }
+    .reveal .controls button { color: var(--gh-accent-blue); }
+    .reveal .progress span { background: linear-gradient(90deg, var(--gh-accent-blue), var(--gh-accent-purple)); }
+    .reveal .slide-number {
+      background: var(--gh-canvas-subtle);
+      color: var(--gh-fg-subtle);
+      border: 1px solid var(--gh-border);
+      border-radius: 6px;
+      font-size: 0.55em;
+      padding: 4px 10px;
+    }
+
+    /* ── Slide cards ────────────────────────────────────── */
+    .reveal .slides section {
+      background: var(--gh-canvas-subtle);
+      border: 1px solid var(--gh-border);
+      border-radius: 12px;
+      padding: 36px 48px;
+      box-shadow:
+        0 0 0 1px var(--gh-border-subtle),
+        0 16px 48px rgba(1,4,9,0.6);
+      text-align: left;
+    }
+
+    /* ── Hero text (Slide 1) ──────────────────────────── */
+    .reveal .slides section.hero-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-top: none;
+      overflow: hidden;
+    }
+    .hero-slide::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gh-accent-blue), var(--gh-accent-purple), var(--gh-accent-pink));
+    }
+    .hero-text {
+      font-size: 2.8em;
+      font-weight: 700;
+      color: var(--gh-fg);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    /* ── Title slide (reused for intro, closing) ─────── */
+    .reveal .slides section.title-slide {
+      text-align: center;
+      border-top: none;
+    }
+    .title-slide::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gh-accent-blue), var(--gh-accent-purple), var(--gh-accent-pink));
+    }
+    .title-slide h1 {
+      font-size: 1.8em;
+      color: var(--gh-fg);
+      margin-bottom: 0.1em;
+    }
+
+    /* Invertocat logo mark */
+    .gh-logo {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+      opacity: 0.9;
+    }
+    .gh-logo svg { width: 100%; height: 100%; }
+    .gh-logo.large {
+      width: 64px;
+      height: 64px;
+    }
+
+    /* Badge */
+    .subtitle {
+      display: inline-block;
+      background: rgba(88,166,255,0.1);
+      color: var(--gh-accent-blue) !important;
+      border: 1px solid rgba(88,166,255,0.25);
+      border-radius: 20px;
+      padding: 5px 18px;
+      font-size: 0.7em !important;
+      margin-top: 12px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Section headers ────────────────────────────────── */
+    .reveal h2 {
+      font-size: 1.55em;
+      margin-bottom: 0.5em;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* ── Tweet card component ─────────────────────────── */
+    .tweet-card {
+      background: var(--gh-canvas);
+      border: 1px solid var(--gh-border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin-top: 10px;
+    }
+    .tweet-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tweet-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--gh-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      flex-shrink: 0;
+    }
+    .tweet-author {
+      display: flex;
+      flex-direction: column;
+    }
+    .tweet-name {
+      font-size: 0.85em;
+      font-weight: 600;
+      color: var(--gh-fg);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tweet-name .verified {
+      width: 16px;
+      height: 16px;
+      fill: var(--gh-accent-blue);
+      flex-shrink: 0;
+    }
+    .tweet-handle {
+      font-size: 0.75em;
+      color: var(--gh-fg-subtle);
+    }
+    .tweet-body {
+      font-size: 0.78em !important;
+      color: var(--gh-fg) !important;
+      line-height: 1.4 !important;
+      margin: 0 0 10px 0;
+    }
+    .tweet-stats {
+      display: flex;
+      gap: 24px;
+      font-size: 0.65em;
+      color: var(--gh-fg-subtle);
+      border-top: 1px solid var(--gh-border);
+      padding-top: 10px;
+    }
+    .tweet-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tweet-x-logo {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      width: 20px;
+      height: 20px;
+      fill: var(--gh-fg-subtle);
+      opacity: 0.5;
+    }
+    .tweet-card { position: relative; }
+
+    /* ── Repo showcase grid ───────────────────────────── */
+    .repo-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .repo-card {
+      background: var(--gh-canvas);
+      border: 1px solid var(--gh-border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .repo-card:hover {
+      border-color: var(--gh-accent-blue);
+    }
+    .repo-card img {
+      width: 100%;
+      height: auto;
+      max-height: 170px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border-bottom: 1px solid var(--gh-border);
+    }
+    .repo-card .repo-caption {
+      padding: 8px 12px;
+    }
+    .repo-card .repo-name {
+      font-size: 0.8em;
+      font-weight: 600;
+      color: var(--gh-accent-blue);
+      margin-bottom: 4px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    }
+    .repo-card .repo-desc {
+      font-size: 0.7em;
+      color: var(--gh-fg-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ── Stat slide ───────────────────────────────────── */
+    .stat-slide {
+      text-align: center;
+    }
+    .stat-slide img {
+      max-width: 72%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--gh-border);
+      margin: 0 auto;
+      display: block;
+    }
+    .stat-headline {
+      font-size: 1.05em !important;
+      color: var(--gh-fg) !important;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* ── Terminal card (demo slides) ──────────────────── */
+    .terminal-card {
+      background: var(--gh-canvas-inset);
+      border: 1px solid var(--gh-border);
+      border-radius: 10px;
+      padding: 20px 28px;
+      margin-top: 12px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      position: relative;
+    }
+    .terminal-dots {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .terminal-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gh-border);
+    }
+    .terminal-dots span:nth-child(1) { background: #ff5f57; }
+    .terminal-dots span:nth-child(2) { background: #febc2e; }
+    .terminal-dots span:nth-child(3) { background: #28c840; }
+    .terminal-prompt {
+      color: var(--gh-accent-green);
+      font-size: 0.85em;
+      line-height: 1.8;
+    }
+    .terminal-prompt .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.1em;
+      background: var(--gh-accent-green);
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .terminal-comment {
+      color: var(--gh-fg-subtle);
+      font-size: 0.8em;
+    }
+
+    /* Spark themed variant */
+    .spark-card {
+      background: var(--gh-canvas);
+      border: 1px solid var(--gh-border);
+      border-radius: 10px;
+      padding: 16px 24px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .spark-icon {
+      font-size: 1.6em;
+      margin-bottom: 8px;
+    }
+    .spark-card p {
+      font-size: 0.8em !important;
+      color: var(--gh-fg-muted) !important;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── Image slide (full bleed) ─────────────────────── */
+    .reveal .slides section.image-slide {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-slide img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 16px 48px rgba(1,4,9,0.8);
+    }
+    .image-overlay {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+    .image-overlay p {
+      font-size: 1.2em !important;
+      color: var(--gh-fg) !important;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(1,4,9,0.9);
+    }
+
+    /* ── CTA slide ────────────────────────────────────── */
+    .cta-slide {
+      text-align: center;
+    }
+    .cta-slide .cta-headline {
+      font-size: 1.3em;
+      color: var(--gh-fg);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .cta-slide .cta-sub {
+      font-size: 0.9em !important;
+      color: var(--gh-accent-green) !important;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .cta-slide .qr-container {
+      margin: 0 auto 12px;
+      width: 160px;
+      height: 160px;
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 8px 32px rgba(1,4,9,0.5);
+    }
+    .cta-slide .qr-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .cta-slide .connect-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 14px;
+    }
+    .cta-slide .connect-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gh-canvas);
+      border: 1px solid var(--gh-border);
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: var(--gh-fg) !important;
+      font-size: 0.8em !important;
+      font-weight: 500;
+      text-decoration: none !important;
+      transition: border-color 0.2s;
+    }
+    .cta-slide .connect-link:hover {
+      border-color: var(--gh-accent-blue);
+    }
+    .connect-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ── Callout box ────────────────────────────────────── */
+    .callout {
+      background: var(--gh-canvas);
+      border: 1px solid var(--gh-border);
+      border-left: 3px solid var(--gh-accent-blue);
+      border-radius: 6px;
+      padding: 14px 20px;
+      margin-top: 10px;
+    }
+    .callout p {
+      color: var(--gh-fg-muted) !important;
+      font-size: 0.78em !important;
+      margin: 0;
+      line-height: 1.5;
+    }
+    .callout.green  { border-left-color: var(--gh-accent-green); }
+    .callout.purple { border-left-color: var(--gh-accent-purple); }
+    .callout.coral  { border-left-color: var(--gh-accent-coral); }
+
+    /* ── Lists ──────────────────────────────────────────── */
+    .reveal ul { list-style: none; padding-left: 0; }
+    .reveal ul li {
+      padding: 0.4em 0;
+      padding-left: 1.5em;
+      position: relative;
+    }
+    .reveal ul li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.85em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gh-accent-green);
+      opacity: 0.8;
+    }
+
+    /* ── Inline icon marks ──────────────────────────────── */
+    .icon-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 1em;
+    }
+    .icon-mark.blue   { background: rgba(88,166,255,0.12); }
+    .icon-mark.green  { background: rgba(63,185,80,0.12); }
+    .icon-mark.purple { background: rgba(188,140,255,0.12); }
+    .icon-mark.coral  { background: rgba(247,129,102,0.12); }
+
+    /* ── Closing slide ────────────────────────────────── */
+    .closing-slide h2 {
+      font-size: 2.2em;
+      background: linear-gradient(135deg, var(--gh-accent-blue), var(--gh-accent-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .reveal p, .reveal li {
-      color: var(--gh-muted);
-      font-size: 0.85em;
-      line-height: 1.6;
-    }
-    .reveal ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .reveal ul li {
-      padding: 0.3em 0;
-      padding-left: 1.4em;
-      position: relative;
-    }
-    .reveal ul li::before {
-      content: "▸";
-      color: var(--gh-green);
-      position: absolute;
-      left: 0;
-    }
-    .reveal a {
-      color: var(--gh-blue);
-    }
-    .reveal .controls button {
-      color: var(--gh-blue);
-    }
-    .reveal .progress span {
-      background: var(--gh-green);
-    }
-    .reveal .slide-number {
-      background: var(--gh-bg-light);
-      color: var(--gh-muted);
-      border: 1px solid var(--gh-border);
-      border-radius: 6px;
-      font-size: 0.55em;
-      padding: 4px 8px;
-    }
 
-    /* Slide card effect */
-    .reveal .slides section {
-      background: var(--gh-bg-light);
-      border: 1px solid var(--gh-border);
-      border-radius: 12px;
-      padding: 48px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    /* Accent bar on title slide */
-    .reveal .slides section.title-slide {
-      border-top: 3px solid var(--gh-green);
-    }
-
-    /* Badge style for subtitle */
-    .subtitle {
-      display: inline-block;
-      background: rgba(56,139,253,0.15);
-      color: var(--gh-blue) !important;
-      border: 1px solid rgba(56,139,253,0.4);
-      border-radius: 20px;
-      padding: 4px 16px;
-      font-size: 0.7em !important;
-      margin-top: 12px;
-    }
-
-    /* GitHub-style code blocks */
-    .reveal pre {
-      background: var(--gh-bg);
-      border: 1px solid var(--gh-border);
-      border-radius: 6px;
-      box-shadow: none;
-    }
+    /* ── Monospace code accent ──────────────────────────── */
     .reveal code {
       font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
     }
+    .reveal code.inline {
+      background: rgba(110,118,129,0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: var(--gh-fg);
+    }
 
-    /* Octicon-inspired decorative mark */
-    .gh-mark {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 16px;
-      border-radius: 50%;
-      background: rgba(56,139,253,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4em;
+    /* ── Responsive tweaks ──────────────────────────────── */
+    @media (max-width: 800px) {
+      .repo-showcase { grid-template-columns: 1fr; }
+      .reveal .slides section { padding: 28px 24px; }
+      .hero-text { font-size: 1.8em; }
     }
   </style>
 </head>
@@ -137,51 +539,276 @@
   <div class="reveal">
     <div class="slides">
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 1 — "Who Here Is a Developer?"
+           ═══════════════════════════════════════════════════ -->
+      <section class="hero-slide">
+        <div class="hero-text">Who here is<br>a developer?</div>
+        <aside class="notes">
+          "Raise your hand if you'd call yourself a developer, studied computer science, or have worked as a SWE."
+          (Pause, scan the room, count hands)
+          (To those who didn't raise hands): "You're wrong — and I'm going to show you why over the next 20 minutes."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 2 — The Era of the Domain Expert Developer
+           ═══════════════════════════════════════════════════ -->
+      <section>
+        <h2 style="margin-bottom: 0.3em;">The Era of the Domain Expert Developer</h2>
+        <div class="tweet-card">
+          <svg class="tweet-x-logo" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <div class="tweet-header">
+            <div class="tweet-avatar">⚾</div>
+            <div class="tweet-author">
+              <span class="tweet-name">Robert Stock <svg class="verified" viewBox="0 0 22 22"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.14.272.587.702 1.086 1.24 1.44.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.222 1.26.268 1.89.138.636-.13 1.22-.436 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.08-1.29-.14-1.898.585-.27 1.084-.7 1.438-1.24.354-.543.552-1.174.57-1.82zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg></span>
+              <span class="tweet-handle">@RobertStock6 · Feb 27, 2026</span>
+            </div>
+          </div>
+          <p class="tweet-body">I'm a baseball player. I've never written a single line of code in my life. But over the last few months, I used AI to build a pitching analytics platform from scratch. 8.9M pitches. Custom ML models. Total transparency. Here is a look at what happens when you give an interested athlete access to AI:</p>
+          <div class="tweet-stats">
+            <span class="tweet-stat">💬 189</span>
+            <span class="tweet-stat">🔁 375</span>
+            <span class="tweet-stat">❤️ 3.6K</span>
+            <span class="tweet-stat">👁 593K</span>
+          </div>
+        </div>
+        <aside class="notes">
+          "We're living in a really cool moment where the tools have finally caught up. Anyone can build software now. But here's what I think most people miss — YOU are actually at an advantage."
+
+          "Why? Because you have domain knowledge. You understand healthcare. You know the workflows, the pain points, the regulations. A software engineer would need months to learn what you already know."
+
+          "The people who are going to build the most interesting, most useful software aren't necessarily CS grads. They're experts in a field — like yours — who can now turn their knowledge directly into working products."
+
+          "I actually tell college students now: major in something else — biology, finance, writing, visual media, whatever you're passionate about — and take CS as a minor. The domain knowledge is the hard part. The coding tools will meet you where you are."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 3 — Who I Am + What is GitHub
+           ═══════════════════════════════════════════════════ -->
       <section class="title-slide">
-        <div class="gh-mark">🔥</div>
-        <h1>Flare Demo</h1>
-        <p class="subtitle">Demo for Flare Capital</p>
+        <div class="gh-logo large">
+          <svg viewBox="0 0 16 16" fill="#e6edf3">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+          </svg>
+        </div>
+        <h1>Elijah Straight</h1>
+        <p style="font-size: 1.05em !important; color: var(--gh-fg-muted) !important; margin-top: 4px;">Member of Technical Staff, GitHub</p>
+        <p class="subtitle">Think of GitHub as Google Drive for code</p>
+        <aside class="notes">
+          "I'm Elijah Straight, Member of Technical Staff at GitHub."
+
+          "And honestly — I'm a perfect example of what I just said. I studied CS, but when I started my career I would NOT have called myself technical. These AI tools changed that. The rate at which you can learn now is completely different. Things that used to take me weeks to figure out, I can understand in an afternoon. So when I say anyone can do this — I'm speaking from experience."
+
+          "If you don't know what GitHub is — think of it as Google Drive for code. It's where developers store, collaborate on, and build software."
+        </aside>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 4 — GitHub Projects (Healthcare Proof Points)
+           ═══════════════════════════════════════════════════ -->
       <section>
-        <h2>Overview</h2>
-        <ul>
-          <li>Introduction</li>
-          <li>Problem Statement</li>
-          <li>Our Solution</li>
-          <li>Demo</li>
-          <li>Next Steps</li>
-        </ul>
+        <div class="icon-mark green">🧬</div>
+        <h2>GitHub Is Not Just for SaaS</h2>
+        <p style="margin-bottom: 16px;">World-changing science lives on GitHub too.</p>
+        <div class="repo-showcase">
+          <a href="https://github.com/marbl/CHM13" class="repo-card" style="text-decoration:none;">
+            <img src="assets/chm13-repo.png" alt="CHM13 Human Genome Repository">
+            <div class="repo-caption">
+              <div class="repo-name">marbl/CHM13</div>
+              <p class="repo-desc">The complete human genome — the first gapless sequence of all human chromosomes.</p>
+            </div>
+          </a>
+          <a href="https://github.com/google-deepmind/alphafold" class="repo-card" style="text-decoration:none;">
+            <img src="assets/alphafold-repo.png" alt="AlphaFold Repository">
+            <div class="repo-caption">
+              <div class="repo-name">google-deepmind/alphafold</div>
+              <p class="repo-desc">AI that predicted the structure of nearly every known protein. Nobel Prize 2024.</p>
+            </div>
+          </a>
+        </div>
+        <aside class="notes">
+          "But GitHub is not just for building your B2B SaaS agent. There are many other cool things on there."
+
+          "The entire human genome lives on GitHub. Google DeepMind's AlphaFold — the AI that predicted the structure of nearly every protein — is on GitHub."
+
+          "These are massive, world-changing projects."
+        </aside>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 5 — GitHub Stats
+           ═══════════════════════════════════════════════════ -->
+      <section class="stat-slide">
+        <p class="stat-headline">Last year, a new developer joined GitHub every second.</p>
+        <img src="assets/github-new-devs.png" alt="Octoverse 2025 — New developers joining GitHub">
+        <p style="margin-top: 20px; font-size: 0.95em !important;">Why? Two words: <strong style="color: var(--gh-accent-blue);">AI agents.</strong></p>
+        <aside class="notes">
+          "Last year, a new developer joined GitHub every second."
+
+          "So what changed? Why is a new developer joining GitHub every second? Two words: AI agents. Let me explain."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 6 — You Should Be Using Agents
+           ═══════════════════════════════════════════════════ -->
       <section>
-        <h2>Problem Statement</h2>
-        <p>Describe the challenge or opportunity here.</p>
+        <div class="icon-mark purple">🤖</div>
+        <h2>You Should Be Using Agents</h2>
+        <div class="callout" style="margin-bottom: 16px;">
+          <p>An <strong style="color: var(--gh-fg);">AI agent</strong> is an AI system equipped with tools that allow it to <em>take action</em> — browse the web, write files, run code, build things on your behalf.</p>
+        </div>
+        <div class="tweet-card">
+          <svg class="tweet-x-logo" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <div class="tweet-header">
+            <div class="tweet-avatar">🧠</div>
+            <div class="tweet-author">
+              <span class="tweet-name">roon <svg class="verified" viewBox="0 0 22 22"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.14.272.587.702 1.086 1.24 1.44.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.222 1.26.268 1.89.138.636-.13 1.22-.436 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.08-1.29-.14-1.898.585-.27 1.084-.7 1.438-1.24.354-.543.552-1.174.57-1.82zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg></span>
+              <span class="tweet-handle">@tszzl · Feb 10, 2026</span>
+            </div>
+          </div>
+          <p class="tweet-body">whatever level of abstraction you are handing off to your agents you should probably be doing one level above that</p>
+          <div class="tweet-stats">
+            <span class="tweet-stat">💬 225</span>
+            <span class="tweet-stat">🔁 183</span>
+            <span class="tweet-stat">❤️ 2.7K</span>
+            <span class="tweet-stat">👁 147K</span>
+          </div>
+        </div>
+        <aside class="notes">
+          "So let me show you what that actually looks like. Let's talk about AI agents for a second. You've probably all used ChatGPT or Claude — those are now what we'd call agentic systems. Meaning they're not just chatbots anymore."
+
+          "And this is my favorite tweet right now. The idea is simple — whatever you're handing off to AI agents today, you should probably be going one level higher. Let them do more."
+
+          "A perfect example: instead of asking an AI to help you write code, you hand it the whole task and let it build the thing. I'm going to demo two different coding agents: Copilot CLI and GitHub Spark. Two different ways of attacking the same problem."
+
+          "Copilot CLI lives in the terminal — it's great for when you want to build something more involved. Spark is fully visual — you just describe what you want and it builds it. We're going to try both."
+        </aside>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 7 — Live CLI Demo: "Let's Build Something"
+           ═══════════════════════════════════════════════════ -->
       <section>
-        <h2>Our Solution</h2>
-        <p>Explain the approach and key differentiators.</p>
+        <div class="icon-mark green">⌨️</div>
+        <h2>Live Demo: Copilot CLI</h2>
+        <p style="margin-bottom: 8px;">Let's build something together — right here, right now.</p>
+        <div class="terminal-card">
+          <div class="terminal-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="terminal-comment"># What's a problem you run into day-to-day?</div>
+          <div class="terminal-prompt">
+            $ copilot<span class="cursor"></span>
+          </div>
+        </div>
+        <div class="callout green" style="margin-top: 16px;">
+          <p>💡 <strong style="color: var(--gh-fg);">The trick:</strong> Give the agent an article as context — like handing a new hire a reference doc before they start.</p>
+        </div>
+        <aside class="notes">
+          "Alright, I'm going to open the terminal. Don't panic — last time I opened this in front of my almost-60-year-old dad, he thought I was hacking him."
+
+          "The terminal is just a text box where you talk to your computer. That's it. And now, with GitHub Copilot, you can talk to it in plain English."
+
+          ASK THE AUDIENCE: "What's a problem you run into in your day-to-day? Something annoying, something you wish you had a tool for?"
+
+          ARTICLE TRICK: "Check this out — I'm going to give the agent an article as context. Think of it like handing someone a reference doc before they start working for you."
+
+          Write the prompt live, narrate what you're typing. Kick it off then TRANSITION to Spark while it builds.
+        </aside>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 8 — GitHub Spark Demo: "Now You Try"
+           ═══════════════════════════════════════════════════ -->
       <section>
-        <h2>Demo</h2>
-        <p>Live demonstration or walkthrough.</p>
+        <div class="icon-mark purple">✨</div>
+        <h2>GitHub Spark</h2>
+        <p style="margin-bottom: 8px;">No terminal. No code. Just describe what you want.</p>
+        <div class="spark-card">
+          <div class="spark-icon">✨</div>
+          <p><strong style="color: var(--gh-fg);">Give me an idea.</strong><br>Appointment reminders, dosage calculators, patient feedback forms…</p>
+        </div>
+        <div class="callout purple" style="margin-top: 12px;">
+          <p>From idea → working prototype in ~2 minutes. No engineering team. No sprint planning. No Jira tickets.</p>
+        </div>
+        <aside class="notes">
+          "While that's building, let me show you something called GitHub Spark. This is for when you don't even want to touch the terminal. You just describe what you want and it builds it for you — no code, no setup, nothing."
+
+          ASK THE AUDIENCE: "Give me a problem. Something you'd love to have a little app for. Doesn't have to be anything crazy."
+
+          Build it live in Spark. Narrate as it builds: "See — it's creating the layout, adding the logic..."
+
+          Show the result: "You just went from idea to working prototype in about 2 minutes."
+        </aside>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 9 — Come Back to CLI Results
+           ═══════════════════════════════════════════════════ -->
       <section>
-        <h2>Next Steps</h2>
-        <ul>
-          <li>Milestone 1</li>
-          <li>Milestone 2</li>
-          <li>Milestone 3</li>
-        </ul>
+        <div class="icon-mark green">🎉</div>
+        <h2>Let's See What We Built</h2>
+        <div class="terminal-card">
+          <div class="terminal-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="terminal-comment"># Remember that thing we kicked off earlier?</div>
+          <div class="terminal-prompt">
+            $ copilot ✓ <span style="color: var(--gh-accent-green);">Build complete</span>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 16px;">
+          <p>We built <strong style="color: var(--gh-fg);">two working things</strong> during this presentation — one from the terminal, one from a visual tool. Neither required you to know a single line of code.</p>
+        </div>
+        <aside class="notes">
+          "Remember that thing we kicked off a few minutes ago? Let's see how it did."
+
+          Switch back to the terminal. Show the generated code/site. If it created a localhost deployment, pull it up in the browser.
+
+          "We built two working things during this presentation — one from the terminal, one from a visual tool. Neither required you to know a single line of code."
+        </aside>
       </section>
 
-      <section class="title-slide">
-        <div class="gh-mark">🙏</div>
-        <h2>Thank You</h2>
-        <p>Questions?</p>
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 10 — Close: "The Hardest Prison to Escape"
+           ═══════════════════════════════════════════════════ -->
+      <section class="image-slide" data-background-color="#0d1117">
+        <img src="assets/hardestprison.jpg" alt="The hardest prison to escape is your own mind">
+        <aside class="notes">
+          "The tools are here. They're free to start. The only thing standing between you and building that thing you've been thinking about... is the belief that you can't."
+
+          "And I hope we just showed you — you absolutely can."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           SLIDE 11 — CTA + Connect
+           ═══════════════════════════════════════════════════ -->
+      <section class="title-slide cta-slide">
+        <div class="gh-logo large">
+          <svg viewBox="0 0 16 16" fill="#e6edf3">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+          </svg>
+        </div>
+        <div class="cta-headline">GitHub for Startups</div>
+        <p class="cta-sub">$10,000 in credits to get started</p>
+        <div class="qr-container">
+          <img src="assets/qr-github-startups.png" alt="Scan for GitHub for Startups">
+        </div>
+        <div class="connect-links">
+          <a href="https://www.linkedin.com/in/elijahstraight/" class="connect-link" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
+          </a>
+        </div>
+        <aside class="notes">
+          "GitHub for Startups gives you $10,000 in credits to get started. Scan that QR code — and definitely connect with me on LinkedIn. I'd love to hear what you end up building."
+
+          Stay up front, available for questions. Don't rush off.
+        </aside>
       </section>
 
     </div>
@@ -195,6 +822,12 @@
     Reveal.initialize({
       hash: true,
       slideNumber: true,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      showNotes: false,
+      width: 1100,
+      height: 760,
+      margin: 0.04,
       plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
     });
   </script>
