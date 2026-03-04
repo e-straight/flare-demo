@@ -371,9 +371,13 @@
       box-shadow: none;
       padding: 0;
       display: flex !important;
+      flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
       height: 100%;
+    }
+    .reveal .slides section.image-slide.present {
+      flex-direction: column !important;
     }
     .image-slide img {
       max-width: 90%;
@@ -707,8 +711,10 @@
            SLIDE 7 — Live CLI Demo: Copilot CLI
            ═══════════════════════════════════════════════════ -->
       <section class="image-slide" data-background-color="#0d1117">
-        <h2 style="margin-bottom: 16px; font-size: 1.3em !important; text-align: center; width: 100%;">Live Demo: Copilot CLI</h2>
-        <img src="assets/copilot-cli-hero.png" alt="GitHub Copilot CLI" style="max-height: 65vh; border-radius: 12px; box-shadow: 0 16px 48px rgba(1,4,9,0.8);">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
+          <h2 style="margin-bottom: 16px; font-size: 1.3em !important; text-align: center;">Live Demo: Copilot CLI</h2>
+          <img src="assets/copilot-cli-hero.png" alt="GitHub Copilot CLI" style="max-height: 65vh; border-radius: 12px; box-shadow: 0 16px 48px rgba(1,4,9,0.8);">
+        </div>
         <aside class="notes">
           "Alright, I'm going to open the terminal. Don't panic. Last time I opened this in front of my almost-60-year-old dad, he thought I was hacking him."
 
@@ -726,8 +732,10 @@
            SLIDE 8 — GitHub Spark Demo
            ═══════════════════════════════════════════════════ -->
       <section class="image-slide" data-background-color="#0d1117">
-        <h2 style="margin-bottom: 16px; font-size: 1.3em !important; text-align: center; width: 100%;">GitHub Spark</h2>
-        <img src="assets/github-spark-hero.png" alt="GitHub Spark" style="max-height: 65vh; border-radius: 12px; box-shadow: 0 16px 48px rgba(1,4,9,0.8);">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
+          <h2 style="margin-bottom: 16px; font-size: 1.3em !important; text-align: center;">GitHub Spark</h2>
+          <img src="assets/github-spark-hero.png" alt="GitHub Spark" style="max-height: 65vh; border-radius: 12px; box-shadow: 0 16px 48px rgba(1,4,9,0.8);">
+        </div>
         <aside class="notes">
           "While that's building, let me show you something called GitHub Spark. This is for when you don't even want to touch the terminal. You just describe what you want and it builds it for you. No code, no setup, nothing."
 
