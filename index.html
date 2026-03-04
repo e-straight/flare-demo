@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flare Demo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+  <style>
+    /* GitHub Primer color palette */
+    :root {
+      --gh-bg:        #0d1117;
+      --gh-bg-light:  #161b22;
+      --gh-border:    #30363d;
+      --gh-text:      #e6edf3;
+      --gh-muted:     #8b949e;
+      --gh-blue:      #58a6ff;
+      --gh-green:     #3fb950;
+      --gh-purple:    #bc8cff;
+      --gh-orange:    #d29922;
+      --gh-red:       #f85149;
+    }
+
+    /* Override Reveal theme */
+    .reveal-viewport {
+      background: var(--gh-bg);
+    }
+    .reveal {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      color: var(--gh-text);
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      color: var(--gh-text);
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: -0.02em;
+    }
+    .reveal h1 {
+      font-size: 2.4em;
+      background: linear-gradient(135deg, var(--gh-blue), var(--gh-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .reveal p, .reveal li {
+      color: var(--gh-muted);
+      font-size: 0.85em;
+      line-height: 1.6;
+    }
+    .reveal ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .reveal ul li {
+      padding: 0.3em 0;
+      padding-left: 1.4em;
+      position: relative;
+    }
+    .reveal ul li::before {
+      content: "▸";
+      color: var(--gh-green);
+      position: absolute;
+      left: 0;
+    }
+    .reveal a {
+      color: var(--gh-blue);
+    }
+    .reveal .controls button {
+      color: var(--gh-blue);
+    }
+    .reveal .progress span {
+      background: var(--gh-green);
+    }
+    .reveal .slide-number {
+      background: var(--gh-bg-light);
+      color: var(--gh-muted);
+      border: 1px solid var(--gh-border);
+      border-radius: 6px;
+      font-size: 0.55em;
+      padding: 4px 8px;
+    }
+
+    /* Slide card effect */
+    .reveal .slides section {
+      background: var(--gh-bg-light);
+      border: 1px solid var(--gh-border);
+      border-radius: 12px;
+      padding: 48px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    /* Accent bar on title slide */
+    .reveal .slides section.title-slide {
+      border-top: 3px solid var(--gh-green);
+    }
+
+    /* Badge style for subtitle */
+    .subtitle {
+      display: inline-block;
+      background: rgba(56,139,253,0.15);
+      color: var(--gh-blue) !important;
+      border: 1px solid rgba(56,139,253,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 0.7em !important;
+      margin-top: 12px;
+    }
+
+    /* GitHub-style code blocks */
+    .reveal pre {
+      background: var(--gh-bg);
+      border: 1px solid var(--gh-border);
+      border-radius: 6px;
+      box-shadow: none;
+    }
+    .reveal code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    /* Octicon-inspired decorative mark */
+    .gh-mark {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(56,139,253,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4em;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section class="title-slide">
+        <div class="gh-mark">🔥</div>
+        <h1>Flare Demo</h1>
+        <p class="subtitle">Demo for Flare Capital</p>
+      </section>
+
+      <section>
+        <h2>Overview</h2>
+        <ul>
+          <li>Introduction</li>
+          <li>Problem Statement</li>
+          <li>Our Solution</li>
+          <li>Demo</li>
+          <li>Next Steps</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Problem Statement</h2>
+        <p>Describe the challenge or opportunity here.</p>
+      </section>
+
+      <section>
+        <h2>Our Solution</h2>
+        <p>Explain the approach and key differentiators.</p>
+      </section>
+
+      <section>
+        <h2>Demo</h2>
+        <p>Live demonstration or walkthrough.</p>
+      </section>
+
+      <section>
+        <h2>Next Steps</h2>
+        <ul>
+          <li>Milestone 1</li>
+          <li>Milestone 2</li>
+          <li>Milestone 3</li>
+        </ul>
+      </section>
+
+      <section class="title-slide">
+        <div class="gh-mark">🙏</div>
+        <h2>Thank You</h2>
+        <p>Questions?</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>
